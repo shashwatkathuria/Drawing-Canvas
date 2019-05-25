@@ -1,9 +1,39 @@
 <!doctype html>
 <html>
   <head>
-    Nothing
+    <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
-    Hello
+      <svg id="svg" style="width:100%; height:800px">
   </body>
+  <script>
+
+      const svg = d3.select('#svg');
+      let isDrawing = false;
+
+      function drawPoint(){
+
+          if (isDrawing === false)
+              return;
+
+          const mouseCoordinates = d3.mouse(this);
+
+          svg.append('circle')
+             .attr('cx', mouseCoordinates[0])
+             .attr('cy', mouseCoordinates[1])
+             .attr('r', 5)
+             .style('fill', 'black');
+      };
+
+      svg.on('mousedown', () => {
+          isDrawing = true;
+      });
+
+      svg.on('mouseup', () => {
+          isDrawing = false;
+      });
+
+      svg.on('mousemove', drawPoint);
+
+  </script>
 </html>
