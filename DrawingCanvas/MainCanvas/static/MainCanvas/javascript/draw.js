@@ -2,36 +2,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
     alert('Hello');
 
-    svg = d3.select('#svg');
+
     let isDrawing = false;
-    svg.append('circle')
-       .attr('cx', 500)
-       .attr('cy', 500)
-       .attr('r', 5)
-       .style('fill', 'black');
 
-    function drawPoint(){
+    let points = [];
+    let lines = [];
+    let svg = null;
 
-        if (isDrawing === false)
-            return;
+    svg = d3.select('#canvas')
+            .attr('height', window.innerHeight)
+            .attr('width', window.innerWidth);
 
-        const mouseCoordinates = d3.mouse(this);
+    svg.on('mousedown', function(){
 
-        svg.append('circle')
-           .attr('cx', mouseCoordinates[0])
-           .attr('cy', mouseCoordinates[1])
-           .attr('r', 5)
-           .style('fill', 'black');
-    };
-
-    svg.on('mousedown', () => {
         isDrawing = true;
+        const mouseCoordinates = d3.mouse(this);
+        drawPoint(mouseCoordinates[0], mouseCoordinates[1], false);
+
     });
 
     svg.on('mouseup', () => {
+
         isDrawing = false;
+
     });
 
-    svg.on('mousemove', drawPoint);
+    svg.on('mousemove', function(){
+
+        if (!isDrawing)
+            return;
+
+        const mouseCoordinates = d3.mouse(this);
+        drawPoint(mouseCoordinates[0], mouseCoordinates[1], true);
+
+    });
+
+    function drawPoint(x, y, isConnect){
+
+        let thickness = 6;
+
+        if (isConnect)
+        {
+            const previousPoint = points[points.length - 1];
+            const line = svg.append('line')
+                            .attr('x1', previousPoint.attr('cx'))
+                            .attr('y1', previousPoint.attr('cy'))
+                            .attr('x2', x)
+                            .attr('y2', y)
+                            .attr('stroke-width', thickness * 2)
+                            .style('stroke', 'black');
+
+              lines.push(line);
+        }
+
+        const point = svg.append('circle')
+                         .attr('cx', x)
+                         .attr('cy', y)
+                         .attr('r', thickness)
+                         .style('fill', 'black');
+
+        points.push(point);
+
+    };
+
+    render();
+
 
 });
