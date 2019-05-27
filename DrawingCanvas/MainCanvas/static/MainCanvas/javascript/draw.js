@@ -1,8 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    alert('Hello');
-
-
     let isDrawing = false;
 
     let points = [];
@@ -39,7 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function drawPoint(x, y, isConnect){
 
-        let thickness = 6;
+        let thickness = 0;
+        var thicknessButtons = document.getElementsByClassName("thicknessClass");
+        for (var i = 0; i < thicknessButtons.length; i++) {
+            if(thicknessButtons[i].checked)
+              thickness = thicknessButtons[i].value;
+        }
+
 
         if (isConnect)
         {
@@ -64,8 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
         points.push(point);
 
     };
-
-    render();
 
 
 });
