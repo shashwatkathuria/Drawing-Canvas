@@ -11,7 +11,6 @@
 
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="{% static 'MainCanvas/javascript/draw.js' %}" ></script>
-
         <title>Drawing Canvas</title>
     </head>
     <body>
@@ -64,6 +63,10 @@
             <label class="btn btn-secondary">
                 <input type="radio" class="thicknessClass" name="thicknessOption" value="3" > 3
             </label>
+      </div>
+      <div>
+          <button type="button" id="eraseButton" class="btn btn-dark">Erase All</button>
+          <button type="button" id="undoButton" class="btn btn-dark">Undo</button>
       </div>
 
         <svg id="canvas"></svg>
