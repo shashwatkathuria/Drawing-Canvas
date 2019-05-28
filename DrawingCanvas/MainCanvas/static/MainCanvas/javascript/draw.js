@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let points = [];
     let lines = [];
+    let removedPointsandLines = [];
     let svg = null;
 
     svg = d3.select('#canvas')
@@ -68,5 +69,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     };
 
+    document.getElementById('eraseButton').onclick = function ()
+    {
+        for (let i = 0; i < points.length - 1; i++)
+        {
+            points[i].remove();
+        }
+
+        for (let i = 0; i < lines.length - 1; i++)
+        {
+            lines[i].remove();
+        }
+    }
+
+    document.getElementById('undoButton').onclick = function ()
+    {
+
+      if (points.length != 0)
+      {
+          points[points.length - 1].remove();
+          removedPoint = points.pop();
+          removedPointsandLines.push(removedPoint);
+      }
+
+      if (lines.length != 0)
+      {
+          lines[lines.length - 1].remove();
+          removedLine = lines.pop();
+          removedPointsandLines.push(removedLine);
+      }
+
+    }
 
 });
