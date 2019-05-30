@@ -64,6 +64,31 @@
                 <input type="radio" class="thicknessClass" name="thicknessOption" value="3" > 3
             </label>
       </div>
+      <div class="btn-group btn-group-toggle " id="colorPicker" data-toggle="buttons">
+            <label class="btn btn-secondary disabled" disabled>
+                <input type="radio" name="colorOption" >Color
+            </label>
+            <label class="btn btn-secondary active">
+                <input type="radio" class="colorClass" name="colorOption" value="black" checked> Black
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" class="colorClass" name="colorOption" value="blue" > Blue
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" class="colorClass" name="colorOption" value="green" > Green
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" class="colorClass" name="colorOption" value="red" > Red
+            </label>
+      </div>
+      <div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Color Hex Value</span>
+          </div>
+          <input type="text" id="colorHexValue" aria-label="Color Value" class="form-control">
+        </div>
+      </div>
       <div>
           <button type="button" id="eraseButton" class="btn btn-dark">Erase All</button>
           <button type="button" id="undoButton" class="btn btn-dark">Undo</button>
