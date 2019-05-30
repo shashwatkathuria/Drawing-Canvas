@@ -38,11 +38,24 @@ document.addEventListener('DOMContentLoaded', () => {
     function drawPoint(x, y, isConnect){
 
         let thickness = 0;
+        let color = "";
         var thicknessButtons = document.getElementsByClassName("thicknessClass");
         for (var i = 0; i < thicknessButtons.length; i++) {
             if(thicknessButtons[i].checked)
               thickness = thicknessButtons[i].value;
         }
+        var colorButtons = document.getElementsByClassName("colorClass");
+        for (var i = 0; i < colorButtons.length; i++) {
+            if(colorButtons[i].checked)
+              color = colorButtons[i].value;
+        }
+
+        var colorHexValue = document.getElementById("colorHexValue");
+        let tempColor = colorHexValue.value;
+        console.log(colorHexValueCheck(tempColor));
+        if (tempColor !== "" )
+            color = tempColor;
+
 
 
         if (isConnect)
@@ -54,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             .attr('x2', x)
                             .attr('y2', y)
                             .attr('stroke-width', thickness * 2)
-                            .style('stroke', 'black');
+                            .style('stroke', color);
 
               lines.push(line);
         }
@@ -63,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
                          .attr('cx', x)
                          .attr('cy', y)
                          .attr('r', thickness)
-                         .style('fill', 'black');
+                         .style('fill', color);
 
         points.push(point);
 
@@ -85,19 +98,40 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('undoButton').onclick = function ()
     {
 
-      if (points.length != 0)
+      if (points.length !== 0)
       {
           points[points.length - 1].remove();
           removedPoint = points.pop();
           removedPointsandLines.push(removedPoint);
       }
 
-      if (lines.length != 0)
+      if (lines.length !== 0)
       {
           lines[lines.length - 1].remove();
           removedLine = lines.pop();
           removedPointsandLines.push(removedLine);
       }
+
+    }
+
+    function colorHexValueCheck(color)
+    {
+        let hexValues = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+
+        if (color.length !== 6)
+            return false
+
+        for(var k = 0; k < color.length ; k++)
+        {
+          
+            if (color[k] in hexValues)
+              continue
+            else
+              return false
+
+        }
+
+        return true
 
     }
 
