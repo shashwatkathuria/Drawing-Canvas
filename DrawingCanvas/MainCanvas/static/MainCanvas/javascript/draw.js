@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         var colorHexValue = document.getElementById("colorHexValue");
         let tempColor = colorHexValue.value;
-        console.log(colorHexValueCheck(tempColor));
         if (tempColor !== "" )
             color = tempColor;
 
@@ -123,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for(var k = 0; k < color.length ; k++)
         {
-          
+
             if (color[k] in hexValues)
               continue
             else
