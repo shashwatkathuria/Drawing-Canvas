@@ -97,19 +97,31 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('undoButton').onclick = function ()
     {
 
-      if (points.length !== 0)
-      {
-          points[points.length - 1].remove();
-          removedPoint = points.pop();
-          removedPointsandLines.push(removedPoint);
-      }
+        if (points.length !== 0)
+        {
+            for ( let i = 0; i < 2; i++)
+            {
+                points[points.length - 1].remove();
+                removedPoint = points.pop();
+                removedPointsandLines.push(removedPoint);
+            }
+        }
 
-      if (lines.length !== 0)
-      {
-          lines[lines.length - 1].remove();
-          removedLine = lines.pop();
-          removedPointsandLines.push(removedLine);
-      }
+        if (lines.length !== 0)
+        {
+            for (let i = 0; i < 2; i++)
+            {
+                lines[lines.length - 1].remove();
+                removedLine = lines.pop();
+                removedPointsandLines.push(removedLine);
+            }
+        }
+
+    }
+
+    document.getElementById('redoButton').onclick = function()
+    {
+
 
     }
 
@@ -124,9 +136,9 @@ document.addEventListener('DOMContentLoaded', () => {
         {
 
             if (color[k] in hexValues)
-              continue
+                continue
             else
-              return false
+                return false
 
         }
 
