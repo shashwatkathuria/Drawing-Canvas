@@ -6,24 +6,12 @@ String.prototype.capitalize = function() {
 
 const e = React.createElement;
 
-const colorClassName = "colorClass";
-const colorName = "colorOption";
+const colorClassName = "colorClass"
+const colorName = "colorOption"
 const colors = ["black" ,"blue", "green", "red"]
-// var color = "Hello Ji";
-// const element = (
-
-// );
-
-// for(let i = 0; i < colors.length ; i++)
-// {
-//     color = colors[i];
-//
-//     ReactDOM.render(
-//         element,
-//         document.getElementById('colorPicker')
-//     );
-// }
-
+const thicknessClassName = "thicknessClass"
+const thicknessName = "thicknessOption"
+const thicknesses = ['1', '2', '3', '4', '5', '6', '7']
 
 
 class ColorClass extends React.Component
@@ -77,22 +65,14 @@ class ColorClass extends React.Component
   }
 }
 
-// ReactDOM.render(
-//   <ColorClass color = "Red"/>,
-//   document.getElementById('colorPicker')
-// );
-
 const listItems = colors.map((color) =>
   <ColorClass color = {color.capitalize()} isDisabled={false} isFirst={colors.indexOf(color) == 0}/>
-  // console.log(colors.indexOf(color) == 0)
-  // console.log(color)
-
 );
 
-const disabledColorButton = <ColorClass color={""} isDisabled ={true} isFirst={false}/>;
+const disabledColorHeadingButton = <ColorClass color={""} isDisabled ={true} isFirst={false}/>;
 
 ReactDOM.render(
-  <div className="btn-group btn-group-toggle" data-toggle="buttons">{disabledColorButton}{listItems}</div>,
+  <div className="btn-group btn-group-toggle" data-toggle="buttons">{disabledColorHeadingButton}{listItems}</div>,
   document.getElementById('colorPicker')
 );
 
