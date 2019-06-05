@@ -119,11 +119,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
-    document.getElementById('redoButton').onclick = function()
-    {
-
-
-    }
+    // document.getElementById('redoButton').onclick = function()
+    // {
+    //     removedElement = removedPointsandLines.pop()
+    //     console.log(removedElement)
+    //     // removedElement.show()
+    //
+    // }
 
     function colorHexValueCheck(color)
     {
