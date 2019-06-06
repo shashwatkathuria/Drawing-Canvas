@@ -71,10 +71,12 @@ const colorListItems = colors.map((color) =>
 
 const disabledColorHeadingButton = <ColorClass color={""} isDisabled ={true} isFirst={false}/>;
 
-ReactDOM.render(
-  <div className="btn-group btn-group-toggle" data-toggle="buttons">{disabledColorHeadingButton}{colorListItems}</div>,
-  document.getElementById('colorPicker')
-);
+// ReactDOM.render(
+//   <div className="btn-group btn-group-toggle" data-toggle="buttons">{disabledColorHeadingButton}{colorListItems}</div>,
+//   document.getElementById('colorPicker')
+// );
+
+const colorBar = <div className="btn-group btn-group-toggle" data-toggle="buttons">{disabledColorHeadingButton}{colorListItems}</div>
 
 class ThicknessClass extends React.Component
 {
@@ -133,7 +135,43 @@ const thicknessListItems = thicknesses.map((thickness) =>
 
 const disabledThicknessHeadingButton = <ThicknessClass thickness={""} isDisabled ={true} isFirst={false}/>;
 
+const thicknessBar = <div className="btn-group btn-group-toggle" data-toggle="buttons">{disabledThicknessHeadingButton}{thicknessListItems}</div>
+
+
+// ReactDOM.render(
+//   <div className="btn-group btn-group-toggle" data-toggle="buttons">{disabledThicknessHeadingButton}{thicknessListItems}</div>,
+//   document.getElementById('thicknessPicker')
+// );
+
+class ButtonClass extends React.Component
+{
+    constructor(props)
+    {
+        super(props)
+        this.state = {id:this.props.id, heading:this.props.heading}
+    }
+    render()
+    {
+        return(
+            <button type="button" id={this.state.id} class="btn btn-dark">{this.state.heading}</button>
+        )
+    }
+}
+
+const buttons = [{id:"eraseButton", heading:"Erase All"},
+                 {id:"undoButton", heading:"Undo"},
+                 {id:"redoButton", heading:"Redo"},
+                ]
+
+const buttonListItems = buttons.map((button) =>
+  <ButtonClass id = {button.id} heading={button.heading}/>
+);
 ReactDOM.render(
-  <div className="btn-group btn-group-toggle" data-toggle="buttons">{disabledThicknessHeadingButton}{thicknessListItems}</div>,
-  document.getElementById('thicknessPicker')
+    <div>{thicknessBar}{colorBar}</div>,
+    document.getElementById('thicknessAndColorBar')
+);
+
+ReactDOM.render(
+    <div>{buttonListItems}</div>,
+    document.getElementById('buttonBar')
 );
