@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('ReactDOMLoaded', () => {
 
     let isDrawing = false;
 
