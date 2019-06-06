@@ -47,7 +47,7 @@ class ColorClass extends React.Component
           return (
               <label className="btn btn-secondary active">
                   {this.state.color}
-                  <input type="radio" className={this.state.colorClassName} style={{display:"none"}} name={this.state.colorName} value={this.state.color} checked/>
+                  <input type="radio" className={this.state.colorClassName} style={{display:"none"}} name={this.state.colorName} value={this.state.color} defaultChecked/>
               </label>
           );
       }
@@ -111,7 +111,7 @@ class ThicknessClass extends React.Component
           return (
               <label className="btn btn-secondary active">
                   {this.state.thickness}
-                  <input type="radio" className={this.state.thicknessClassName} style={{display:"none"}} name={this.state.thicknessName} value={this.state.thickness} checked/>
+                  <input type="radio" className={this.state.thicknessClassName} style={{display:"none"}} name={this.state.thicknessName} value={this.state.thickness} defaultChecked/>
               </label>
           );
       }
@@ -153,7 +153,7 @@ class ButtonClass extends React.Component
     render()
     {
         return(
-            <button type="button" id={this.state.id} class="btn btn-dark">{this.state.heading}</button>
+            <button type="button" id={this.state.id} className="btn btn-dark" >{this.state.heading}</button>
         )
     }
 }
@@ -164,8 +164,9 @@ const buttons = [{id:"eraseButton", heading:"Erase All"},
                 ]
 
 const buttonListItems = buttons.map((button) =>
-  <ButtonClass id = {button.id} heading={button.heading}/>
+  <ButtonClass id = {button.id} heading={button.heading} />
 );
+
 ReactDOM.render(
     <div>{thicknessBar}{colorBar}</div>,
     document.getElementById('thicknessAndColorBar')
@@ -175,3 +176,8 @@ ReactDOM.render(
     <div>{buttonListItems}</div>,
     document.getElementById('buttonBar')
 );
+
+
+var event = new CustomEvent("ReactDOMLoaded", { "detail": "React elements loaded." });
+
+document.dispatchEvent(event);
