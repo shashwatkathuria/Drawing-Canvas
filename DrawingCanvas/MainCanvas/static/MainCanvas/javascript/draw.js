@@ -1,3 +1,4 @@
+// 'use strict';
 document.addEventListener('ReactDOMLoaded', () => {
 
     let isDrawing = false;
@@ -102,7 +103,7 @@ document.addEventListener('ReactDOMLoaded', () => {
             for ( let i = 0; i < 2; i++)
             {
                 points[points.length - 1].remove();
-                removedPoint = points.pop();
+                let removedPoint = points.pop();
                 removedPointsandLines.push(removedPoint);
             }
         }
@@ -112,20 +113,53 @@ document.addEventListener('ReactDOMLoaded', () => {
             for (let i = 0; i < 2; i++)
             {
                 lines[lines.length - 1].remove();
-                removedLine = lines.pop();
+                let removedLine = lines.pop();
                 removedPointsandLines.push(removedLine);
             }
         }
 
     }
 
-    // document.getElementById('redoButton').onclick = function()
-    // {
-    //     removedElement = removedPointsandLines.pop()
-    //     console.log(removedElement)
-    //     // removedElement.show()
-    //
-    // }
+    document.getElementById('redoButton').onclick = function()
+    {
+        if (removedPointsandLines.length !== 0)
+        {
+            let removedElement = removedPointsandLines.pop()
+            try
+            {
+              let strokeWidth = removedElement._groups['0']['0'].attributes['stroke-width'].value
+              let strokeColor = removedElement._groups['0']['0'].style.stroke
+              let x1 = removedElement._groups['0']['0'].x1.animVal.value
+              let x2 = removedElement._groups['0']['0'].x2.animVal.value
+              let y1 = removedElement._groups['0']['0'].y1.animVal.value
+              let y2 = removedElement._groups['0']['0'].y2.animVal.value
+
+              const line = svg.append('line')
+                              .attr('x1', x1)
+                              .attr('y1', y1)
+                              .attr('x2', x2)
+                              .attr('y2', y2)
+                              .attr('stroke-width', strokeWidth)
+                              .style('stroke', strokeColor);
+
+                lines.push(line);
+              } catch(TypeError){
+
+                let cx = removedElement._groups['0']['0'].cx.animVal.value
+                let cy = removedElement._groups['0']['0'].cy.animVal.value
+                let r = removedElement._groups['0']['0'].r.animVal.value
+                let fillColor = removedElement._groups['0']['0'].style.fill
+
+                const point = svg.append('circle')
+                                 .attr('cx', cx)
+                                 .attr('cy', cy)
+                                 .attr('r', r)
+                                 .style('fill', fillColor);
+
+                points.push(point);
+              }
+          }
+    }
 
     function colorHexValueCheck(color)
     {
