@@ -91,12 +91,18 @@ document.addEventListener('ReactDOMLoaded', () => {
         for (let i = 0; i < points.length - 1; i++)
         {
             points[i].remove();
+            let removedPoint = points[i]
+            removedPoints.push(removedPoint)
+
         }
 
         for (let i = 0; i < lines.length - 1; i++)
         {
             lines[i].remove();
+            let removedLine = lines[i]
+            removedLines.push(removedLine)
         }
+
     }
 
     document.getElementById('undoButton').onclick = function ()
