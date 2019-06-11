@@ -161,6 +161,7 @@ class ButtonClass extends React.Component
 const buttons = [{id:"eraseButton", heading:"Erase All"},
                  {id:"undoButton", heading:"Undo"},
                  {id:"redoButton", heading:"Redo"},
+                 {id:"saveDrawingButton", heading:"Save Drawing"}
                 ]
 
 const buttonListItems = buttons.map((button) =>
