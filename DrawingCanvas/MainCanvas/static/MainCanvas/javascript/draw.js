@@ -88,7 +88,7 @@ document.addEventListener('ReactDOMLoaded', () => {
 
     document.getElementById('eraseButton').onclick = function ()
     {
-        for (let i = 0; i < points.length - 1; i++)
+        for (let i = 0; i < points.length; i++)
         {
             points[i].remove();
             let removedPoint = points[i]
@@ -96,7 +96,7 @@ document.addEventListener('ReactDOMLoaded', () => {
 
         }
 
-        for (let i = 0; i < lines.length - 1; i++)
+        for (let i = 0; i < lines.length; i++)
         {
             lines[i].remove();
             let removedLine = lines[i]
@@ -203,7 +203,42 @@ document.addEventListener('ReactDOMLoaded', () => {
 
     }
 
-      resizeCanvas();
-      window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    document.getElementById('saveDrawingButton').onclick = function ()
+    {
+        var savedData = {
+            'points' : [],
+            'lines' : [],
+        }
+        for (let i = 0; i < points.length; i++)
+        {
+          let currentPoint = points[i]
+          let cx = currentPoint._groups['0']['0'].cx.animVal.value
+          let cy = currentPoint._groups['0']['0'].cy.animVal.value
+          let r = currentPoint._groups['0']['0'].r.animVal.value
+          let fillColor = currentPoint._groups['0']['0'].style.fill
+
+          savedData['points'].push({'x' : cx, 'y' : cy, 'r' : r, 'color' : fillColor})
+
+          
+        }
+
+        for (let i = 0; i < lines.length; i++)
+        {
+          let currentLine = lines[i]
+          let strokeWidth = currentLine._groups['0']['0'].attributes['stroke-width'].value
+          let strokeColor = currentLine._groups['0']['0'].style.stroke
+          let x1 = currentLine._groups['0']['0'].x1.animVal.value
+          let x2 = currentLine._groups['0']['0'].x2.animVal.value
+          let y1 = currentLine._groups['0']['0'].y1.animVal.value
+          let y2 = currentLine._groups['0']['0'].y2.animVal.value
+
+          savedData['lines'].push({'x1' : x1, 'y1' : y1, 'x2' : x2, 'y2' : y2, 'strokeWidth'  :strokeWidth, 'strokeColor' : strokeColor})
+
+
+        }
+    }
 
 });
