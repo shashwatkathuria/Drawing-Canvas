@@ -63,6 +63,12 @@
       </div>
       <div id="buttonBar"></div>
 
+      <form id="saveDrawing" action="{% url 'saveDrawing' %}" method="post" hidden onsubmit="return submitDrawing()">
+        {% csrf_token %}
+        <input id="JSONData" type="text" name="JSONData"/>
+        <button id="save" type="submit" class="btn btn-warning btn-lg" ></button>
+      </form>
+
         <svg id="canvas" style="background:rgba(255,255,255,0.95)"></svg>
 
         <!-- Optional JavaScript -->
