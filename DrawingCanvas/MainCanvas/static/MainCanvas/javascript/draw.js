@@ -9,12 +9,16 @@ document.addEventListener('ReactDOMLoaded', () => {
     let removedLines = []
     let svg = null;
 
+    var savedData = {
+        'points' : [],
+        'lines' : [],
+    }
+
     var canvas = document.getElementById("canvas");
     svg = d3.select('#canvas');
             // .attr('height', window.innerHeight)
             // .attr('width', window.innerWidth);
 
-    console.log(svg)
 
     svg.on('mousedown', function(){
 
@@ -208,10 +212,7 @@ document.addEventListener('ReactDOMLoaded', () => {
 
     document.getElementById('saveDrawingButton').onclick = function ()
     {
-        var savedData = {
-            'points' : [],
-            'lines' : [],
-        }
+
         for (let i = 0; i < points.length; i++)
         {
           let currentPoint = points[i]
@@ -222,7 +223,7 @@ document.addEventListener('ReactDOMLoaded', () => {
 
           savedData['points'].push({'x' : cx, 'y' : cy, 'r' : r, 'color' : fillColor})
 
-          
+
         }
 
         for (let i = 0; i < lines.length; i++)
@@ -239,6 +240,16 @@ document.addEventListener('ReactDOMLoaded', () => {
 
 
         }
+
+        document.getElementById('save').click()
+
+    }
+
+    document.getElementById('save').onclick = function()
+    {
+        document.getElementById('JSONData').value = JSON.stringify(savedData)
+
+        return true
     }
 
 });
