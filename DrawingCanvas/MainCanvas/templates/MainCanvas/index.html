@@ -69,6 +69,11 @@
         <button id="save" type="submit" class="btn btn-warning btn-lg" ></button>
       </form>
 
+      {% if message %}
+            <div style="text-align:center;margin:0 auto;"class="alert alert-warning" role="alert">
+                {{ message }}
+            </div>
+      {% endif %}
         <svg id="canvas" style="background:rgba(255,255,255,0.95)"></svg>
 
         <!-- Optional JavaScript -->
