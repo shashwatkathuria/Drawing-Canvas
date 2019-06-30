@@ -2,9 +2,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from .models import Circle, Line, Drawing
+from .models import Drawing
 import json
-
+# json.loads(request.POST['JSONData'])
 # Create your views here.
 
 def index(request):
@@ -13,22 +13,20 @@ def index(request):
 
 def saveDrawing(request):
     if request.method == "POST":
-        savedData = json.loads(request.POST['JSONData'])
-        points = savedData['points']
-        lines = savedData['lines']
-        drawing = Drawing()
-        drawing.save()
-        for point in points:
-            circle = Circle(x = point['x'], y = point['y'], radius = point['r'], fillColor = point['color'])
-            circle.save()
-            drawing.circles.add(circle)
-        for line in lines:
-            newLine = Line(x1 = line['x1'], y1 = line['y1'], x2 = line['x2'], y2 = line['y2'], strokeColor = line['strokeColor'], strokeWidth = line['strokeWidth'])
-            newLine.save()
-            drawing.lines.add(newLine)
+        drawing = Drawing(drawingJSONText = request.POST['JSONData'])
         drawing.save()
 
-    response = modifiedResponseHeaders(render(request, 'MainCanvas/index.html'))
+    context = {"message" : "Drawing saved at /loadDrawing/" + str(drawing.id) + "/"}
+
+    response = modifiedResponseHeaders(render(request, 'MainCanvas/index.html', context))
+    return response
+
+def loadDrawing(request, drawingID):
+    drawing = Drawing.objects.get(id = drawingID)
+
+    context = {"message" : drawing.drawingJSONText}
+
+    response = modifiedResponseHeaders(render(request, 'MainCanvas/index.html', context))
     return response
 
 def modifiedResponseHeaders(response):
