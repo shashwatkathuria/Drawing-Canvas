@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from .models import Drawing
 import json
-# json.loads(request.POST['JSONData'])
+
 # Create your views here.
 
 def index(request):
@@ -22,10 +22,11 @@ def saveDrawing(request):
     return response
 
 def loadDrawing(request, drawingID):
-    drawing = Drawing.objects.get(id = drawingID)
-
-    context = {"message" : drawing.drawingJSONText}
-
+    drawing = json.loads(Drawing.objects.get(id = drawingID).drawingJSONText)
+    context = {
+        "points" : drawing['points'],
+        "lines" : drawing['lines']
+    }
     response = modifiedResponseHeaders(render(request, 'MainCanvas/index.html', context))
     return response
 
