@@ -252,4 +252,37 @@ document.addEventListener('ReactDOMLoaded', () => {
         return true
     }
 
+
+    if (document.getElementById('JSONLoadData') != null)
+    {
+
+        var loadedData = JSON.parse(JSONLoadData.value)
+
+        for(let i = 0; i < loadedData['points'].length; i++)
+        {
+            const point = svg.append('circle')
+                             .attr('cx', loadedData['points'][i]['x'])
+                             .attr('cy', loadedData['points'][i]['y'])
+                             .attr('r', loadedData['points'][i]['r'])
+                             .style('fill', loadedData['points'][i]['color']);
+
+            points.push(point);
+        }
+
+        for(let i = 0; i < loadedData['lines'].length; i++)
+        {
+            const line = svg.append('line')
+                          .attr('x1', loadedData['lines'][i]['x1'])
+                          .attr('y1', loadedData['lines'][i]['y1'])
+                          .attr('x2', loadedData['lines'][i]['x2'])
+                          .attr('y2', loadedData['lines'][i]['y2'])
+                          .attr('stroke-width', loadedData['lines'][i]['strokeWidth'])
+                          .style('stroke', loadedData['lines'][i]['strokeColor']);
+
+            lines.push(line);
+        }
+
+    }
+
+
 });
