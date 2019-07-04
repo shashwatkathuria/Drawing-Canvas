@@ -75,15 +75,23 @@
             </div>
       {% endif %}
 
+      {% if loadIntoJavascript %}
+            <form id="loadDrawing" action="" method="post" hidden >
+                {% csrf_token %}
+                <input id="JSONLoadData" type="text" name="JSONData" value="{{ JSONData }}"/>
+                <button id="load" type="submit" class="btn btn-warning btn-lg" ></button>
+            </form>
+      {% endif %}
+
         <svg id="canvas" style="background:rgba(255,255,255,0.95)">
-            {% for point in points %}
+            <!-- {% for point in points %}
                 <circle cx="{{ point.x }}" cy="{{ point.y }}" r="{{ point.r }}" style="fill: {{ point.color }};"></circle>
             {% empty %}
             {% endfor %}
             {% for line in lines %}
                 <line x1="{{ line.x1 }}" y1="{{ line.y1 }}" x2="{{ line.x2 }}" y2="{{ line.y2 }}" stroke-width="{{ line.strokeWidth }}" style="stroke: {{ line.strokeColor }};"></line>
             {% empty %}
-            {% endfor %}
+            {% endfor %} -->
         </svg>
 
         <!-- Optional JavaScript -->
