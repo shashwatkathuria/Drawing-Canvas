@@ -22,10 +22,13 @@ def saveDrawing(request):
     return response
 
 def loadDrawing(request, drawingID):
-    drawing = json.loads(Drawing.objects.get(id = drawingID).drawingJSONText)
+    drawingJSONData = Drawing.objects.get(id = drawingID).drawingJSONText
+    drawing = json.loads(drawingJSONData)
     context = {
         "points" : drawing['points'],
-        "lines" : drawing['lines']
+        "lines" : drawing['lines'],
+        "loadIntoJavascript" : True,
+        "JSONData" : drawingJSONData
     }
     response = modifiedResponseHeaders(render(request, 'MainCanvas/index.html', context))
     return response
