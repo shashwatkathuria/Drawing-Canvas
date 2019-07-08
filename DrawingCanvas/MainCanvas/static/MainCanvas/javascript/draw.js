@@ -169,7 +169,7 @@ document.addEventListener('ReactDOMLoaded', () => {
             }
             catch(error)
             {
-                continue
+                // Do nothing
             }
         }
 
@@ -188,7 +188,7 @@ document.addEventListener('ReactDOMLoaded', () => {
             }
             catch(error)
             {
-                continue
+                // Do nothing
             }
 
         }
@@ -303,79 +303,94 @@ document.addEventListener('ReactDOMLoaded', () => {
     // Resizing canvas if resize event is triggered at any point of timse
     window.addEventListener("resize", resizeCanvas);
 
+    // Function to save on clicking save button
     document.getElementById('saveDrawingButton').onclick = function ()
     {
 
+        // Saving each point in JSON object
         for (let i = 0; i < points.length; i++)
         {
-          let currentPoint = points[i]
-          let cx = currentPoint._groups['0']['0'].cx.animVal.value
-          let cy = currentPoint._groups['0']['0'].cy.animVal.value
-          let r = currentPoint._groups['0']['0'].r.animVal.value
-          let fillColor = currentPoint._groups['0']['0'].style.fill
+              // Getting info of each point
+              let currentPoint = points[i]
+              let cx = currentPoint._groups['0']['0'].cx.animVal.value
+              let cy = currentPoint._groups['0']['0'].cy.animVal.value
+              let r = currentPoint._groups['0']['0'].r.animVal.value
+              let fillColor = currentPoint._groups['0']['0'].style.fill
 
-          savedData['points'].push({'x' : cx, 'y' : cy, 'r' : r, 'color' : fillColor})
-
+              // Saving the same inside JSON object's points array
+              savedData['points'].push({'x' : cx, 'y' : cy, 'r' : r, 'color' : fillColor})
 
         }
 
+        // Saving each line in JSON object
         for (let i = 0; i < lines.length; i++)
         {
-          let currentLine = lines[i]
-          let strokeWidth = currentLine._groups['0']['0'].attributes['stroke-width'].value
-          let strokeColor = currentLine._groups['0']['0'].style.stroke
-          let x1 = currentLine._groups['0']['0'].x1.animVal.value
-          let x2 = currentLine._groups['0']['0'].x2.animVal.value
-          let y1 = currentLine._groups['0']['0'].y1.animVal.value
-          let y2 = currentLine._groups['0']['0'].y2.animVal.value
+            // Getting info of each line
+            let currentLine = lines[i]
+            let strokeWidth = currentLine._groups['0']['0'].attributes['stroke-width'].value
+            let strokeColor = currentLine._groups['0']['0'].style.stroke
+            let x1 = currentLine._groups['0']['0'].x1.animVal.value
+            let x2 = currentLine._groups['0']['0'].x2.animVal.value
+            let y1 = currentLine._groups['0']['0'].y1.animVal.value
+            let y2 = currentLine._groups['0']['0'].y2.animVal.value
 
-          savedData['lines'].push({'x1' : x1, 'y1' : y1, 'x2' : x2, 'y2' : y2, 'strokeWidth'  :strokeWidth, 'strokeColor' : strokeColor})
-
+            // Saving the same inside JSON object's lines array
+            savedData['lines'].push({'x1' : x1, 'y1' : y1, 'x2' : x2, 'y2' : y2, 'strokeWidth'  :strokeWidth, 'strokeColor' : strokeColor})
 
         }
 
+        // Submitting JSON Data through POST form to server by clicking button
         document.getElementById('save').click()
 
     }
 
+    // Function to save drawing by sending JSON of drawing saved to server
     document.getElementById('save').onclick = function()
     {
+        // Getting string of JSON object of drawing saved
         document.getElementById('JSONData').value = JSON.stringify(savedData)
 
+        // Going forward with the form and sending post request
         return true
     }
 
-
+    // Checking if the drawing to be loaded exists
     if (document.getElementById('JSONLoadData') != null)
     {
 
+        // Parsing the loaded drawing from server to a JSON Object
         var loadedData = JSON.parse(JSONLoadData.value)
 
+        // Iterating through all the points in the loaded drawing
         for(let i = 0; i < loadedData['points'].length; i++)
         {
+            // Saving the point and drawing the same in the svg canvas
             const point = svg.append('circle')
                              .attr('cx', loadedData['points'][i]['x'])
                              .attr('cy', loadedData['points'][i]['y'])
                              .attr('r', loadedData['points'][i]['r'])
                              .style('fill', loadedData['points'][i]['color']);
 
+            // Pushing the point inside points array
             points.push(point);
         }
 
+        // Iterating through all the lines in the loaded drawing
         for(let i = 0; i < loadedData['lines'].length; i++)
         {
+            // Saving the line and drawing the same in the svg canvas
             const line = svg.append('line')
-                          .attr('x1', loadedData['lines'][i]['x1'])
-                          .attr('y1', loadedData['lines'][i]['y1'])
-                          .attr('x2', loadedData['lines'][i]['x2'])
-                          .attr('y2', loadedData['lines'][i]['y2'])
-                          .attr('stroke-width', loadedData['lines'][i]['strokeWidth'])
-                          .style('stroke', loadedData['lines'][i]['strokeColor']);
+                            .attr('x1', loadedData['lines'][i]['x1'])
+                            .attr('y1', loadedData['lines'][i]['y1'])
+                            .attr('x2', loadedData['lines'][i]['x2'])
+                            .attr('y2', loadedData['lines'][i]['y2'])
+                            .attr('stroke-width', loadedData['lines'][i]['strokeWidth'])
+                            .style('stroke', loadedData['lines'][i]['strokeColor']);
 
+            // Pushing the line inside lines array
             lines.push(line);
         }
 
     }
-
 
 });
