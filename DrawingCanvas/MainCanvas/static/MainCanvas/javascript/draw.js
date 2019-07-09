@@ -394,3 +394,16 @@ document.addEventListener('ReactDOMLoaded', () => {
     }
 
 });
+
+// Function to load drawing
+function modfiyLoadFormAction()
+{
+    // Getting string of drawing ID
+    var x = document.getElementById('loadID').value
+
+    // Modifying action url according to drawing ID
+    document.getElementById('loadForm').action = "/loaddrawing/" + x + "/"
+
+    // Going forward with the form and sending post request
+    return true
+}
