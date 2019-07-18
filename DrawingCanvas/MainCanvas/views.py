@@ -32,8 +32,10 @@ def saveDrawing(request):
         # Editing response headers and returning the same
         response = modifiedResponseHeaders(render(request, 'MainCanvas/index.html', context))
         return response
+
+    # Returning index page if not a POST request
     else:
-        
+
         # Editing response headers and returning the same
         response = modifiedResponseHeaders(render(request, 'MainCanvas/index.html'))
         return response
