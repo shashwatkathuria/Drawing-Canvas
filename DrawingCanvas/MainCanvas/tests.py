@@ -1,6 +1,7 @@
 from django.test import Client, TestCase
 from .models import Drawing
 import json
+from bs4 import BeautifulSoup
 # Create your tests here.
 
 # Sample drawing saved at drawing ID 11
@@ -29,3 +30,33 @@ class DrawingTestCase(TestCase):
             json.loads(drawingText)
         except:
             self.assertEqual(1, "--INVALID FORMAT FOR JSON--")
+
+def checkResponseHeaders(response):
+    return response["Cache-Control"] == "no-cache, no-store, must-revalidate" and response["Pragma"] == "no-cache" and response["Expires"] == "0"
+
+class ClientsInteractionTestCase(TestCase):
+
+    def setUp(self):
+        drawingJSONText = sampleDrawing
+        drawing = Drawing.objects.create(drawingJSONText = drawingJSONText)
+
+    def testIndexPage(self):
+        client = Client()
+
+        response = client.get("/")
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(checkResponseHeaders(response))
+        self.assertTemplateUsed(response, 'MainCanvas/index.html')
+
+    def testLoadDrawing(self):
+        client = Client()
+
+        response = client.get("/loaddrawing/1/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(checkResponseHeaders(response))
+        self.assertTemplateUsed(response, 'MainCanvas/index.html')
+
+        Scraper = BeautifulSoup(str(response.content.decode()), "html.parser")
+        responseDrawingJSONTest = Scraper.find("input", {"id": "JSONLoadData"})['value']
+        self.assertEqual(sampleDrawing, responseDrawingJSONTest)
