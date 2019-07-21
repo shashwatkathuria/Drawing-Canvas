@@ -13,28 +13,46 @@ testDrawingToBeSaved = '{"points":[{"x":290,"y":371.5168151855469,"r":1,"color":
 class DrawingTestCase(TestCase):
 
     def setUp(self):
+        """Function to set up testcase - save a sample drawing into test database."""
+
+        # Saving sampleDrawing in database
         drawingJSONText = sampleDrawing
         drawing = Drawing.objects.create(drawingJSONText = drawingJSONText)
 
     def testDrawingCount(self):
+        """Function to test the number of drawings saved in the test database."""
+
+        # Getting all the drawings in the database
         drawings = Drawing.objects.all()
 
+        # Testing the number of drawngs saved
         self.assertEqual(drawings.count(), 1)
 
     def testDrawingDetails(self):
+        """Function to test whether correct drawing is saved in the database."""
+
+        # Getting all the drawings
         drawings = Drawing.objects.all()
 
+        # Verifying the drawing saved
         self.assertEqual(sampleDrawing, drawings[0].drawingJSONText)
 
     def testdrawingJSONFormat(self):
+        """Function to test the format of the json drawing saved."""
+
+        # Getting JSON Text of drawing saved
         drawingText = Drawing.objects.get(id = 1).drawingJSONText
 
+        # Try block raises an error if format of JSON is incorrect
         try:
             json.loads(drawingText)
+        # Statement to print error
         except:
+            # Not testing this assert, just a alert for test failure
             self.assertEqual(1, "--INVALID FORMAT FOR JSON--")
 
 def checkResponseHeaders(response):
+    """Function to test the response headers as saved in views."""
     return response["Cache-Control"] == "no-cache, no-store, must-revalidate" and response["Pragma"] == "no-cache" and response["Expires"] == "0"
 
 class ClientsInteractionTestCase(TestCase):
