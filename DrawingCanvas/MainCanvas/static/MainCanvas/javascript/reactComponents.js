@@ -14,6 +14,10 @@ const thicknessClassName = "thicknessClass"
 const thicknessName = "thicknessOption"
 const thicknesses = ['1', '2', '3', '4', '5', '6', '7']
 
+const eraserClassName = "eraserClass"
+const eraserName = "eraserOption"
+const erasers = ["0", "1", "2", "3", "4", "5", "6", "7"]
+
 // Defining color class as a react component
 class ColorClass extends React.Component
 {
@@ -160,6 +164,91 @@ class ThicknessClass extends React.Component
     }
 }
 
+
+// Defining thickness class as a react component
+class EraserClass extends React.Component
+{
+    constructor(props)
+    {
+        // Constructing parent elements
+        super(props);
+
+        // Defining state
+        this.state = {
+          thickness: this.props.thickness,
+          eraserClassName:eraserClassName,
+          eraserName:eraserName,
+          disabled:this.props.isDisabled,
+          isFirst:this.props.isFirst
+        };
+
+        // Binding handleChange method to this class
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    // Function for handling change of thickness
+    handleChange(event)
+    {
+        this.setState({thickness: event.target.value});
+    }
+
+    // Function for rendering thickness button
+    render()
+    {
+        // Not rendering active button if button is disabled
+        if (this.state.disabled === false)
+        {
+            // Button not active/selected if not first
+            if (this.state.isFirst === false)
+            {
+                return (
+                    <label className="btn btn-secondary">
+                        {this.state.thickness}
+                        <input type="radio" className={this.state.eraserClassName} style={{display:"none"}} name={this.state.eraserName} value={this.state.thickness} />
+                    </label>
+                );
+            }
+            // Button selected if first button
+            else
+            {
+                return (
+                    <label className="btn btn-secondary active">
+                        {this.state.thickness}
+                        <input type="radio" className={this.state.eraserClassName} style={{display:"none"}} name={this.state.eraserName} value={this.state.thickness} defaultChecked/>
+                    </label>
+                );
+            }
+        }
+        // Rendering disabled button
+        else
+        {
+            return (
+              <label className="btn btn-secondary disabled" disabled>
+                  Eraser
+                  <input type="radio" name={this.state.eraserName} />
+              </label>
+            );
+        }
+    }
+}
+
+
+
+
+
+// Creating eraser buttons for each eraser thickness using its react class
+const eraserListItems = erasers.map((eraser) =>
+  <EraserClass thickness = {eraser} isDisabled={false} isFirst={erasers.indexOf(eraser) == 0}/>
+);
+
+// Creating eraser buttons for disabled color heading button using its react class
+const disabledEraserHeadingButton = <EraserClass thickness={""} isDisabled ={true} isFirst={false}/>;
+
+// Inserting disabledEraserHeadingButton and eraserListItems inside eraserBar
+const eraserBar = <div className="btn-group btn-group-toggle" data-toggle="buttons">{disabledEraserHeadingButton}{eraserListItems}</div>
+
+
+
 // Creating thickness buttons for each color using its react class
 const thicknessListItems = thicknesses.map((thickness) =>
   <ThicknessClass thickness = {thickness} isDisabled={false} isFirst={thicknesses.indexOf(thickness) == 0}/>
@@ -208,10 +297,10 @@ const buttonListItems = buttons.map((button) =>
   <ButtonClass id = {button.id} heading={button.heading} />
 );
 
-// Rendering thickness and color bar
+// Rendering thickness and color and eraser bar
 ReactDOM.render(
-    <div>{thicknessBar}{colorBar}</div>,
-    document.getElementById('thicknessAndColorBar')
+    <div>{thicknessBar}{colorBar}{eraserBar}</div>,
+    document.getElementById('thicknessAndColorAndEraserBar')
 );
 
 // Rendering all funtion buttons
