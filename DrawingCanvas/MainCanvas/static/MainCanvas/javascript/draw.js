@@ -63,6 +63,7 @@ document.addEventListener('ReactDOMLoaded', () => {
         // Variables required for drawing
         let thickness = 0;
         let color = "";
+        let eraserThickness = 0;
 
         // Getting input value of thickness from respective HTML element
         var thicknessButtons = document.getElementsByClassName("thicknessClass");
@@ -82,6 +83,21 @@ document.addEventListener('ReactDOMLoaded', () => {
             {
                 color = colorButtons[i].value;
             }
+        }
+
+        var eraserButtons = document.getElementsByClassName("eraserClass");
+        for (var i = 0; i < eraserButtons.length; i++)
+        {
+            if(eraserButtons[i].checked)
+            {
+                eraserThickness = eraserButtons[i].value;
+            }
+        }
+
+        if (eraserThickness != 0)
+        {
+          thickness = eraserThickness
+          color = "white"
         }
 
         // Getting color hex value if any is given else color remains
