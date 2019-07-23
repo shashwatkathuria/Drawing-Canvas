@@ -58,50 +58,80 @@ def checkResponseHeaders(response):
 class ClientsInteractionTestCase(TestCase):
 
     def setUp(self):
+        """Function to set up testcase - save a sample drawing into test database."""
+
         drawingJSONText = sampleDrawing
         drawing = Drawing.objects.create(drawingJSONText = drawingJSONText)
 
     def testIndexPage(self):
+        """Function to test index page of app."""
+
+        # Initializing a new client
         client = Client()
 
+        # Requesting for index page through GET request
         response = client.get("/")
+
+        # Testing for necessary asserts
         self.assertEqual(response.status_code, 200)
         self.assertTrue(checkResponseHeaders(response))
         self.assertTemplateUsed(response, 'MainCanvas/index.html')
 
-    def testLoadDrawing(self, id = 1, drawing = sampleDrawing):
+    def testLoadDrawing(self, id = 1, drawingToBeTestedWith = sampleDrawing):
+        """Function to test load page of app given drawing ID and drawing
+           to be tested with."""
+
+        # Initializing a new client
         client = Client()
 
+        # Requesting for load page through GET request with id
         response = client.get("/loaddrawing/"+ str(id) +"/")
 
+        # Testing for necessary asserts
         self.assertEqual(response.status_code, 200)
         self.assertTrue(checkResponseHeaders(response))
         self.assertTemplateUsed(response, 'MainCanvas/index.html')
 
+        # Scraping response html for necessary JSON Data and
+        # testing it with the drawing to be tested with
         Scraper = BeautifulSoup(str(response.content.decode()), "html.parser")
         responseDrawingJSONTest = Scraper.find("input", {"id": "JSONLoadData"})['value']
-        self.assertEqual(drawing, responseDrawingJSONTest)
+        self.assertEqual(drawingToBeTestedWith, responseDrawingJSONTest)
 
     def testPostSaveDrawing(self):
+        """Function to test the save drawing page(POST request) of app."""
+
+        # Initializing a new client
         client = Client()
 
+        # Requesting for save drawing through POST request and
+        # test drawing as post data
         response = client.post('/savedrawing', {'JSONData' : testDrawingToBeSaved})
 
+        # Testing for necessary asserts
         self.assertEqual(response.status_code, 200)
         self.assertTrue(checkResponseHeaders(response))
         self.assertTemplateUsed(response, 'MainCanvas/index.html')
 
+        # Scraping response html for necessary drawing ID and
+        # testing that drawing with load drawing test
         Scraper = BeautifulSoup(str(response.content.decode()), "html.parser")
         element = Scraper.find("div", {'class' : "alert alert-warning"})
         drawingID = int(re.search(r'\d+', str(element.encode_contents())).group())
 
+        # Testing the above extracted drawing ID with load drawing test
         self.testLoadDrawing(id = drawingID, drawing = testDrawingToBeSaved)
 
     def testGetSaveDrawing(self):
+        """Function to test the save drawing page(GET request) of app."""
+
+        # Initializing a new client
         client = Client()
 
+        # Requesting for save page through GET request
         response = client.get('/savedrawing')
 
+        # Testing for necessary asserts
         self.assertEqual(response.status_code, 200)
         self.assertTrue(checkResponseHeaders(response))
         self.assertTemplateUsed(response, 'MainCanvas/index.html')
