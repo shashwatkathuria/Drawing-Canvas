@@ -6,14 +6,13 @@ String.prototype.capitalize = function() {
 }
 
 // Initializing variables required for rendering thickness
-// and color buttons
+// and color and eraser buttons
 const colorClassName = "colorClass"
 const colorName = "colorOption"
 const colors = ["black" ,"blue", "green", "red"]
 const thicknessClassName = "thicknessClass"
 const thicknessName = "thicknessOption"
 const thicknesses = ['1', '2', '3', '4', '5', '6', '7']
-
 const eraserClassName = "eraserClass"
 const eraserName = "eraserOption"
 const erasers = ["0", "1", "2", "3", "4", "5", "6", "7"]
@@ -297,7 +296,7 @@ const buttonListItems = buttons.map((button) =>
   <ButtonClass id = {button.id} heading={button.heading} />
 );
 
-// Rendering thickness and color and eraser bar
+// Rendering thickness, color and eraser bar
 ReactDOM.render(
     <div>{thicknessBar}{colorBar}{eraserBar}</div>,
     document.getElementById('thicknessAndColorAndEraserBar')
