@@ -120,7 +120,7 @@ class ClientsInteractionTestCase(TestCase):
         drawingID = int(re.search(r'\d+', str(element.encode_contents())).group())
 
         # Testing the above extracted drawing ID with load drawing test
-        self.testLoadDrawing(id = drawingID, drawing = testDrawingToBeSaved)
+        self.testLoadDrawing(id = drawingID, drawingToBeTestedWith = testDrawingToBeSaved)
 
     def testGetSaveDrawing(self):
         """Function to test the save drawing page(GET request) of app."""
