@@ -16,7 +16,6 @@
     <body background="{% static 'MainCanvas/images/01.jpg' %}" style="background-size: auto auto;">
 
         <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-          <div class="mx-auto d-sm-flex d-block flex-sm-nowrap">
             <a class="navbar-brand" style="color:white" href="{% url 'index' %}"><strong>Drawing Canvas</strong></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -25,43 +24,30 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" style="color:white" href="{% url 'saveDrawing' %}">Home<span class="sr-only">(current)</span></a>
+                  <a class="nav-link text-warning" href="{% url 'index' %}">Home<span class="sr-only">(current)</span></a>
                 </li>
-                <!-- <li class="nav-item">
-                  <a class="nav-link" style="color:white" href="#">Login</a>
-                </li> -->
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" style="color:white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Options
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" style="color:black" href="#">Action</a>
-                    <a class="dropdown-item" style="color:black" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" style="color:black" href="#">Something else here</a>
-                  </div>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link disabled text-warning" href="#" tabindex="-1" aria-disabled="true">Happy Drawing!</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link disabled" style="color:white" href="#" tabindex="-1" aria-disabled="true">Happy Drawing!</a>
+                  <button id="saveDrawingNavbar" class="btn btn-outline-warning my-2 my-sm-0" type="button" >Save Drawing</button>
                 </li>
               </ul>
-              <form class="form-inline my-2 my-lg-0" action="{% url 'loadDrawing' drawingID=2 %}" method="post" id="loadForm" onsubmit="return modfiyLoadFormAction()">
+              <form class="form-inline my-2 my-lg-0" action="{% url 'loadDrawing' drawingID=2 %}" method="post" id="loadForm" onsubmit="return modifyLoadFormAction()">
                 {% csrf_token %}
                 <input class="form-control mr-sm-2" id="loadID" type="number" min="0" placeholder="Enter Drawing ID" aria-label="Search">
-                <button id="loadSearch" class="btn btn-outline-success my-2 my-sm-0" type="submit">Load Drawing</button>
+                <button id="loadSearch" class="btn btn-outline-warning my-2 my-sm-0" type="submit">Load Drawing</button>
               </form>
             </div>
-          </div>
         </nav>
 
       <div  id="thicknessAndColorAndEraserBar" ></div>
 
       <div>
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">Color Hex Value</span>
-          </div>
-          <input type="text" id="colorHexValue" aria-label="Color Value" class="form-control">
+        <div class="input-group" style="margin-right:5%;">
+            <button class="btn btn-warning my-2 my-sm-0 disabled" type="button">Color Hex Value(Optional)</button>
+            <input class="form-control mr-sm-2" id="colorHexValue" type="text" placeholder="Enter Color Hex Value" aria-label="Search">
         </div>
       </div>
       <div id="buttonBar"></div>
@@ -86,7 +72,7 @@
             </form>
       {% endif %}
 
-        <svg id="canvas" style="background:rgba(255,255,255,0.95)"></svg>
+        <svg id="canvas" style="background:rgba(255,255,255,0.97)"></svg>
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
