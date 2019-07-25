@@ -54,7 +54,7 @@ class ColorClass extends React.Component
             if (this.state.isFirst === false)
             {
                 return (
-                    <label className="btn btn-secondary">
+                    <label className="btn btn-warning">
                         {this.state.color}
                         <input type="radio" className={this.state.colorClassName} style={{display:"none"}} name={this.state.colorName} value={this.state.color} />
                     </label>
@@ -64,7 +64,7 @@ class ColorClass extends React.Component
             else
             {
                 return (
-                    <label className="btn btn-secondary active">
+                    <label className="btn btn-warning active">
                         {this.state.color}
                         <input type="radio" className={this.state.colorClassName} style={{display:"none"}} name={this.state.colorName} value={this.state.color} defaultChecked/>
                     </label>
@@ -76,7 +76,7 @@ class ColorClass extends React.Component
         else
         {
             return (
-              <label className="btn btn-secondary disabled" disabled>
+              <label className="btn btn-warning disabled" disabled>
                   Color
                   <input type="radio" name={this.state.colorName} />
               </label>
@@ -133,7 +133,7 @@ class ThicknessClass extends React.Component
             if (this.state.isFirst === false)
             {
                 return (
-                    <label className="btn btn-secondary">
+                    <label className="btn btn-warning">
                         {this.state.thickness}
                         <input type="radio" className={this.state.thicknessClassName} style={{display:"none"}} name={this.state.thicknessName} value={this.state.thickness} />
                     </label>
@@ -143,7 +143,7 @@ class ThicknessClass extends React.Component
             else
             {
                 return (
-                    <label className="btn btn-secondary active">
+                    <label className="btn btn-warning active">
                         {this.state.thickness}
                         <input type="radio" className={this.state.thicknessClassName} style={{display:"none"}} name={this.state.thicknessName} value={this.state.thickness} defaultChecked/>
                     </label>
@@ -154,7 +154,7 @@ class ThicknessClass extends React.Component
         else
         {
             return (
-              <label className="btn btn-secondary disabled" disabled>
+              <label className="btn btn-warning disabled" disabled>
                   Thickness
                   <input type="radio" name={this.state.thicknessName} />
               </label>
@@ -201,7 +201,7 @@ class EraserClass extends React.Component
             if (this.state.isFirst === false)
             {
                 return (
-                    <label className="btn btn-secondary">
+                    <label className="btn btn-warning">
                         {this.state.thickness}
                         <input type="radio" className={this.state.eraserClassName} style={{display:"none"}} name={this.state.eraserName} value={this.state.thickness} />
                     </label>
@@ -211,7 +211,7 @@ class EraserClass extends React.Component
             else
             {
                 return (
-                    <label className="btn btn-secondary active">
+                    <label className="btn btn-warning active">
                         {this.state.thickness}
                         <input type="radio" className={this.state.eraserClassName} style={{display:"none"}} name={this.state.eraserName} value={this.state.thickness} defaultChecked/>
                     </label>
@@ -222,7 +222,7 @@ class EraserClass extends React.Component
         else
         {
             return (
-              <label className="btn btn-secondary disabled" disabled>
+              <label className="btn btn-warning disabled" disabled>
                   Eraser
                   <input type="radio" name={this.state.eraserName} />
               </label>
@@ -278,7 +278,7 @@ class ButtonClass extends React.Component
     render()
     {
         return(
-            <button type="button" id={this.state.id} className="btn btn-dark" >{this.state.heading}</button>
+            <button type="button" id={this.state.id} className="btn btn-warning" >{this.state.heading}</button>
         );
     }
 }
