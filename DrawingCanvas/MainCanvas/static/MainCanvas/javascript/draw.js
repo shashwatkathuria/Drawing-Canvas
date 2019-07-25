@@ -103,10 +103,10 @@ document.addEventListener('ReactDOMLoaded', () => {
         // Getting color hex value if any is given else color remains
         // the one from above color class
         var colorHexValue = document.getElementById("colorHexValue");
-        let tempColor = colorHexValue.value;
-        if (tempColor !== "" )
+        let isHexColor = colorHexValueCheck(colorHexValue.value);
+        if (isHexColor)
         {
-            color = tempColor;
+            color = colorHexValue.value;
         }
 
         // Drawing lines if isConnect is true, i.e., the corrdinates passed
@@ -163,6 +163,8 @@ document.addEventListener('ReactDOMLoaded', () => {
             let removedLine = lines[i]
             removedLines.push(removedLine)
         }
+        points = []
+        lines = []
 
     }
 
@@ -270,7 +272,7 @@ document.addEventListener('ReactDOMLoaded', () => {
     function colorHexValueCheck(color)
     {
         // Hex element values array
-        let hexValues = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+        let hexValues = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'A', 'B', 'C', 'D', 'E', 'F'];
 
         // Hex colors are 6 hex digits long
         if (color.length !== 6)
@@ -281,8 +283,11 @@ document.addEventListener('ReactDOMLoaded', () => {
         // For loop to check each element
         for (let k = 0; k < color.length ; k++)
         {
-            // Continuing to next iteration if correct
-            if (color[k] in hexValues)
+            // Checking if current symbol is a hex value
+            let isHex = hexValues.includes(color[k])
+
+            // Continuing to next iteration if true
+            if (isHex)
             {
                 continue
             }
@@ -360,6 +365,13 @@ document.addEventListener('ReactDOMLoaded', () => {
 
     }
 
+    // Function to direct to actual save function on clicking save
+    // button in navbar
+    document.getElementById('saveDrawingNavbar').onclick = function()
+    {
+        document.getElementById('saveDrawingButton').click()
+    }
+
     // Function to save drawing by sending JSON of drawing saved to server
     document.getElementById('save').onclick = function()
     {
@@ -412,7 +424,7 @@ document.addEventListener('ReactDOMLoaded', () => {
 });
 
 // Function to load drawing
-function modfiyLoadFormAction()
+function modifyLoadFormAction()
 {
     // Getting string of drawing ID
     var x = document.getElementById('loadID').value
