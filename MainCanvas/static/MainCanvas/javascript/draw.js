@@ -39,7 +39,7 @@ document.addEventListener('ReactDOMLoaded', () => {
         // Passing coordinates of mouse to draw point function
         // false indicates not to be connected by line as this
         // is the starting point, i.e., only one point
-        drawPoint(touchCoordinates[0], touchCoordinates[1], false);
+        drawPoint(touchCoordinates[0][0], touchCoordinates[0][1], false);
 
     });
 
@@ -79,11 +79,11 @@ document.addEventListener('ReactDOMLoaded', () => {
             return;
         }
 
-        const touchCoordinates = d3.mouse(this);
+        const touchCoordinates = d3.touches(this);
         // Passing coordinates of mouse to draw point function
         // trfue indicates line to be joined with the previous
         // point already saved in the points array
-        drawPoint(touchCoordinates[0], touchCoordinates[1], true);
+        drawPoint(touchCoordinates[0][0], touchCoordinates[0][1], true);
 
     });
 
@@ -339,9 +339,8 @@ document.addEventListener('ReactDOMLoaded', () => {
     {
 
         // Getting window dimensions
-        let height = window.innerHeight;
+        let height = window.innerHeight - document.getElementById("withoutCanvas").offsetHeight;
         let width = window.innerWidth;
-
         // Drawing on the canvas
         canvas.style.width = width;
         canvas.style.height = height;
