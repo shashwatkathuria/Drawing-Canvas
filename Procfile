@@ -1,1 +1,1 @@
-web: gunicorn IITJHealthCare.wsgi --log-file -
+web: gunicorn DrawingCanvas.wsgi --log-file -
