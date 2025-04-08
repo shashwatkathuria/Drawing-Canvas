@@ -27,8 +27,10 @@ INSTRUCTIONS TO RUN THE PROJECT
 
 Type the following commands in sequential order:
 
+              python3 -m venv venv      (To create virtual environment)
               source env/bin/activate      (To activate virtual environment)
-              cd Drawing-Canvas
+              pip install -r requirements.txt
+              python3 manage.py migrate
               python3 manage.py runserver  
 
 To deactivate the virtual environment:
